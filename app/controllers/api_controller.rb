@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
   def create
-    Record.create(json_data: "")
+    Converter::Proxy.new(params).perform
   end
 end
