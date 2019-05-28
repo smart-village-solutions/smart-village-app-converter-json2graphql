@@ -34,10 +34,11 @@ module Converter
       url = Rails.application.credentials.target_server[:url]
       response = ApiRequestService.new(url, nil, nil, mutation).post_request
 
-      Rails.logger.error '#' * 30
-      Rails.logger.error url
-      Rails.logger.error mutation
-      Rails.logger.error response.code
+      if response.code === 400
+        Rails.logger.error '#' * 30
+        Rails.logger.error mutation
+        Rails.logger.error '#' * 30
+      end
     end
   end
 end
