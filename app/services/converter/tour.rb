@@ -1,9 +1,10 @@
 module Converter
   class Tour < Base
-    attr_accessor :entries
+    attr_accessor :entries, :bearer
 
-    def initialize(entries)
+    def initialize(entries, bearer)
       @entries = entries
+      @bearer = bearer
     end
 
     def perform
@@ -11,7 +12,7 @@ module Converter
 
       entries.each do |entry|
         mutation = build_mutation('createTour', entry)
-        send_mutation(mutation)
+        send_mutation(mutation, bearer)
       end
     end
   end

@@ -30,9 +30,9 @@ module Converter
       json_string
     end
 
-    def send_mutation(mutation)
+    def send_mutation(mutation, token)
       url = Rails.application.credentials.target_server[:url]
-      response = ApiRequestService.new(url, nil, nil, mutation).post_request
+      response = ApiRequestService.new(url, nil, nil, mutation, { Authorization: token }).post_request
 
       Rails.logger.error '#' * 30
       Rails.logger.error mutation
