@@ -11,6 +11,7 @@ module Converter
       Converter::PointOfInterest.new(params[:point_of_interests], bearer).perform
       Converter::Tour.new(params[:tours], bearer).perform
       Converter::EventRecord.new(params[:events], bearer).perform
+      Converter::NewsItem.new(params[:news], bearer).perform
     end
   end
 end
