@@ -33,6 +33,11 @@ module Converter
     def send_mutation(mutation)
       url = Rails.application.credentials.target_server[:url]
       response = ApiRequestService.new(url, nil, nil, mutation).post_request
+
+      Rails.logger.error '#' * 30
+      Rails.logger.error url
+      Rails.logger.error mutation
+      Rails.logger.error response.code
     end
   end
 end
