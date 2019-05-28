@@ -69,7 +69,7 @@ class ApiRequestService
       url.path,
       "Content-Type" => headers.fetch(:content_type, "application/json")
     )
-    @request.body = @params
+    @request.body = @params.to_json
 
     @headers.each do |key, value|
       @request.add_field key, value
