@@ -34,9 +34,9 @@ module Converter
       url = Rails.application.credentials.target_server[:url]
       response = ApiRequestService.new(url, nil, nil, mutation).post_request
 
-      if response.code === 400
-        File.open("#{Rails.root}/log/mutations.log", 'w') { |f| f.write(mutation) }
-      end
+      Rails.logger.error '#' * 30
+      Rails.logger.error mutation
+      Rails.logger.error '#' * 30
     end
   end
 end
