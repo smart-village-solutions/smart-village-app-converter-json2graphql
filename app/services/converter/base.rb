@@ -32,11 +32,11 @@ module Converter
 
     def send_mutation(mutation, token)
       url = Rails.application.credentials.target_server[:url]
-      response = ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request
+      ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request
 
-      Rails.logger.error '#' * 30
-      Rails.logger.error mutation
-      Rails.logger.error '#' * 30
+      # Rails.logger.error '#' * 30
+      # Rails.logger.error mutation
+      # Rails.logger.error '#' * 30
     end
   end
 end
