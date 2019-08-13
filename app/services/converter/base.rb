@@ -1,14 +1,18 @@
 module Converter
   class Base
     def build_mutation(name, entry)
-      data = cleanup_and_convert_to_json(entry)
-      data = convert_keys_to_camelcase(data)
-      data = remove_quotes_from_keys(data)
+      if entry[:action] == "destroy"
+        "mutation { #{name} {id} }"
+      else
+        data = cleanup_and_convert_to_json(entry)
+        data = convert_keys_to_camelcase(data)
+        data = remove_quotes_from_keys(data)
 
-      # remove leading and tailing curly braces
-      data.gsub!(/^\{/, '').gsub!(/\}$/, '')
+        # remove leading and tailing curly braces
+        data.gsub!(/^\{/, '').gsub!(/\}$/, '')
 
-      "mutation { #{name} (#{data}) {id} }"
+        "mutation { #{name} (#{data}) {id} }"
+      end
     end
 
     def cleanup_and_convert_to_json(entry)
@@ -32,7 +36,7 @@ module Converter
 
     def send_mutation(mutation, token)
       url = Rails.application.credentials.target_server[:url]
-      response = ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request
+      ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request
 
       Rails.logger.error mutation
       Rails.logger.error "Json2GraphqlError #{response.inspect}" if response.code != "200"
