@@ -34,9 +34,8 @@ module Converter
       url = Rails.application.credentials.target_server[:url]
       response = ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request
 
-      Rails.logger.error '#' * 30
       Rails.logger.error mutation
-      Rails.logger.error '#' * 30
+      Rails.logger.error "Json2GraphqlError #{response.inspect}" if response.code != "200"
     end
   end
 end
