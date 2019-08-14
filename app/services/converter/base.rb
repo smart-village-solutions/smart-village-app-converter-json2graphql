@@ -39,7 +39,7 @@ module Converter
       response = ApiRequestService.new(url, nil, nil, {query: mutation}, { Authorization: token }).post_request
 
       Rails.logger.error mutation
-      Rails.logger.error "Json2GraphqlError #{response.inspect}" if response.code != "200"
+      Rails.logger.error response.inspect
     end
   end
 end
