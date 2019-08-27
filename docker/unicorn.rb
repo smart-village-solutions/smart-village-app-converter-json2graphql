@@ -7,7 +7,7 @@ working_directory app_dir
 preload_app true
 
 # nuke workers after 60 seconds (the default)
-timeout 300
+timeout 1200
 
 # listen on a Unix domain socket and/or a TCP port,
 
