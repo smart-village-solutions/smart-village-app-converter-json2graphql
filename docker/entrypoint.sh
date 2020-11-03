@@ -2,14 +2,11 @@
 
 set -e
 
-DB=${DB_HOST:-db:5432}
+dockerize -wait tcp://db:5432 -timeout 30s
 
-dockerize -wait tcp://$DB -timeout 30s
+bundle exec rake db:create db:migrate
 
-# Remove a potentially pre-existing server.pid for Rails.
-rm -f /myapp/tmp/pids/server.pid
-
-npm set audit false
-rake db:migrate
+# cp -r /app/public/* /assets/
+rm -f /unicorn.pid
 
 exec "$@"
